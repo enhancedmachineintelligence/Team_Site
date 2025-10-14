@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Team | Members</title>
+    <link rel="stylesheet" href="css/team.css">
+    <link rel="icon" href="images/logo.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <img src="images/logo.png" alt="EMI Logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="team.html" class="active">Team</a>
+            <a href="members.html">Members</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="team-section">
+        <h1>Meet the EMI Team</h1>
+        <p>Our dedicated team working together to learn, grow, and innovate.</p>
+
+        <div class="team-container">
+
+            <!-- Team Member -->
+            <div class="team-card">
+                <div class="image">
+                    <img src="images/abdulrhman.jpg" alt="Abdulrhman">
+                </div>
+                <h2>Abdulrhman Salama</h2>
+                <p class="role">Team Leader</p>
+                <div class="details">
+                    <p>AI Engineer passionate about ML, DL & Computer Vision.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="image">
+                    <img src="images/ziad.jpg" alt="Ziad">
+                </div>
+                <h2>Ziad</h2>
+                <p class="role">Driver of the KIA 🚗</p>
+                <div class="details">
+                    <p>Focused on backend and automation systems.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="image">
+                    <img src="images/baher.jpg" alt="Baher">
+                </div>
+                <h2>Baher</h2>
+                <p class="role">Team Member</p>
+                <div class="details">
+                    <p>Interested in AI model training and optimization.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="image">
+                    <img src="images/amira.jpg" alt="Amira">
+                </div>
+                <h2>Amira</h2>
+                <p class="role">Team Member</p>
+                <div class="details">
+                    <p>Specializes in data preprocessing and analytics.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="image">
+                    <img src="images/sara.jpg" alt="Sara">
+                </div>
+                <h2>Sara</h2>
+                <p class="role">Team Member</p>
+                <div class="details">
+                    <p>Expert in DL models and data visualization.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 EMI Team. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle details on click
+        document.querySelectorAll('.team-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

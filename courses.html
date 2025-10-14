@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Courses - EMI Team</title>
+    <link rel="stylesheet" href="css/courses.css" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a class="brand" href="index.html">
+                <img src="images/logo.png" alt="EMI Logo" class="logo">
+                <span class="brand-name"> Team</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html" class="active">Courses</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="members.html">Members</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Our Courses</h1>
+                <p>Access the materials and initiatives EMI Team studies together.</p>
+            </div>
+        </section>
+
+        <section class="courses-grid">
+            <div class="container">
+
+                <!-- Route Course -->
+                <article class="course-card">
+                    <div class="course-header">
+                        <h3>AI & Machine Learning (Route)</h3>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="course-content">
+                        <img src="images/Route.jpg" alt="Route">
+                        <p>Comprehensive Route training materials and exercises.</p>
+                        <a class="btn primary"
+                            href="https://drive.google.com/drive/folders/171fRi4Ky2D4Aqe_7QwTPhAxwwz1xaKlI"
+                            target="_blank" rel="noopener">Open Course</a>
+                    </div>
+                </article>
+
+                <!-- DEPI Course -->
+                <article class="course-card">
+                    <div class="course-header">
+                        <h3>DEPI – Digital Egypt Pioneers</h3>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="course-content">
+                        <img src="images/logo.png" alt="DEPI / EMI Logo">
+                        <p>National initiative for digital skills and transformation.</p>
+                        <a class="btn primary" href="https://depi.gov.eg" target="_blank" rel="noopener">Visit DEPI</a>
+                    </div>
+                </article>
+
+                <!-- Neural Networks Course -->
+                <article class="course-card">
+                    <div class="course-header">
+                        <h3>Neural Networks & Computer Vision</h3>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="course-content">
+                        <img src="images/3blue1brown.jpg" alt="3Blue1Brown">
+                        <p>3Blue1Brown playlist — visual intuition for deep learning.</p>
+                        <a class="btn primary"
+                            href="https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank"
+                            rel="noopener">Watch Playlist</a>
+                    </div>
+                </article>
+
+                <!-- Freelancing Course -->
+                <article class="course-card">
+                    <div class="course-header">
+                        <h3>Freelancing – ITIDA</h3>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="course-content">
+                        <img src="images/itida.jpg" alt="ITIDA">
+                        <p>Freelancing training program by ITIDA through eYouth Learning platform.</p>
+                        <a class="btn primary" href="https://dfpp.eyouthlearning.com/dashboard" target="_blank"
+                            rel="noopener">Open Course</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 EMI Team. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.course-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                const content = header.nextElementSibling;
+
+                if (card.classList.contains('open')) {
+                    card.classList.remove('open');
+                    content.style.maxHeight = null;
+                } else {
+                    // قفل الباقي قبل فتح الجديد
+                    document.querySelectorAll('.course-card').forEach(c => {
+                        c.classList.remove('open');
+                        c.querySelector('.course-content').style.maxHeight = null;
+                    });
+                    card.classList.add('open');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

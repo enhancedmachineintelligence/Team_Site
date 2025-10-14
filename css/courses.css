@@ -1,0 +1,277 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0c0c1d;
+    color: #fff;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(12, 12, 29, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 224, 255, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.brand-name span {
+    color: #00e0ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #00e0ff;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header {
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 40px;
+    background: linear-gradient(180deg, #0c0c1d 0%, #10102b 100%);
+    animation: fadeIn 1.5s ease;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: #00e0ff;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+/* =========================
+   COURSES GRID
+========================= */
+.courses-grid {
+    padding: 40px 0 80px;
+}
+
+.courses-grid .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* =========================
+   COURSE CARD
+========================= */
+.course-card {
+    background: #141432;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 224, 255, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px rgba(0, 224, 255, 0.25);
+}
+
+/* Header inside each card */
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease;
+}
+
+.course-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.course-header h3 {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.toggle-icon {
+    font-size: 1.3rem;
+    color: #00e0ff;
+    transition: transform 0.4s ease;
+}
+
+/* Card open animation */
+.course-card.open .toggle-icon {
+    transform: rotate(90deg);
+}
+
+/* Course content */
+.course-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding: 0 22px;
+}
+
+.course-card.open .course-content {
+    padding-bottom: 20px;
+}
+
+/* Inside content */
+.course-content img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.course-content p {
+    color: #bbb;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn.primary {
+    background: linear-gradient(90deg, #00e0ff, #0077ff);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00e0ff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    background: rgba(12, 12, 29, 0.8);
+    color: #777;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(0, 224, 255, 0.1);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 15px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .course-header h3 {
+        font-size: 1rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .container h1 {
+        font-size: 1.6rem;
+    }
+
+    .container p {
+        font-size: 0.95rem;
+    }
+
+    #googleSignInBtn {
+        width: 80%;
+        max-width: 250px;
+    }
+}
