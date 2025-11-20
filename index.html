@@ -1,39 +1,506 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EMI Team | AI Innovators</title>
-    <link rel="stylesheet" href="css/index.css" />
+  <meta charset="UTF-8" />
+  <title>مخطط صيام الدوبامين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- مكتبة الرسم المجانية Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#0f172a;
+      color:#e5e7eb;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      padding:16px;
+    }
+    .app{
+      width:100%;
+      max-width:1100px;
+      background:#020617;
+      border-radius:16px;
+      padding:20px;
+      border:1px solid #1f2937;
+      box-shadow:0 25px 50px rgba(0,0,0,.6);
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+      align-items:center;
+    }
+    header h1{font-size:1.5rem;color:#fde047}
+    header p{font-size:.9rem;color:#9ca3af}
+    .date-box{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:.9rem;
+    }
+    .date-box input{
+      padding:6px 8px;
+      border-radius:8px;
+      border:1px solid #374151;
+      background:#020617;
+      color:#e5e7eb;
+    }
+    .date-box input:focus{outline:1px solid #3b82f6}
+    .layout{
+      display:grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+      gap:18px;
+    }
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr}
+    }
+
+    /* قائمة البروتوكولات */
+    .card{
+      background:#020617;
+      border:1px solid #1f2937;
+      border-radius:14px;
+      padding:14px 16px;
+    }
+    .card h2{
+      font-size:1rem;
+      margin-bottom:8px;
+      color:#e5e7eb;
+    }
+    .card small{color:#9ca3af;font-size:.8rem}
+    .habits-list{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      max-height:430px;
+      overflow-y:auto;
+      padding-right:4px;
+    }
+    .habit-item{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 8px;
+      border-radius:10px;
+      background:#022c22;
+      border:1px solid #16a34a33;
+      font-size:.9rem;
+    }
+    .habit-item:nth-child(odd){background:#064e3b;}
+    .habit-item input[type="checkbox"]{
+      width:18px;
+      height:18px;
+      accent-color:#22c55e;
+      cursor:pointer;
+    }
+    .summary-line{
+      margin-top:10px;
+      font-size:.9rem;
+    }
+    .summary-line span{font-weight:600;color:#22c55e}
+
+    .extra-inputs{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      font-size:.88rem;
+    }
+    .field{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .field input{
+      padding:4px 8px;
+      border-radius:8px;
+      border:1px solid #374151;
+      background:#020617;
+      color:#e5e7eb;
+      width:110px;
+    }
+    .field input:focus{outline:1px solid #3b82f6}
+    .hint{font-size:.8rem;color:#9ca3af;margin-top:2px}
+
+    /* الإحصائيات */
+    .stats-header{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:10px;
+      font-size:.86rem;
+    }
+    .stats-header select{
+      padding:6px 8px;
+      border-radius:8px;
+      border:1px solid #374151;
+      background:#020617;
+      color:#e5e7eb;
+      min-width:150px;
+    }
+    .stats-header select:focus{outline:1px solid #3b82f6}
+    .note{font-size:.8rem;color:#9ca3af;margin-top:6px}
+    canvas{background:#020617;border-radius:12px;border:1px solid #1f2937;padding:6px;}
+
+    footer{
+      margin-top:10px;
+      font-size:.8rem;
+      color:#6b7280;
+      text-align:left;
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <div class="logo">EMI<span> Team</span></div>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="team.html">Team</a></li>
-                <li><a href="courses.html">Courses</a></li>
-                <li><a href="members.html">Members</a></li>
-            </ul>
-        </nav>
-    </header>
+<div class="app">
+  <header>
+    <div>
+      <h1>DOPAMINE DETOX TRACKER</h1>
+      <p>مخطط صيام الدوبامين – تتبع يومك، واحصل على إحصائيات للأيام الماضية.</p>
+    </div>
+    <div class="date-box">
+      <span>اليوم:</span>
+      <input type="date" id="dateInput">
+    </div>
+  </header>
 
-    <section class="hero">
-        <div class="content">
-            <h1>We Are <span>EMI Team</span></h1>
-            <p>We specialize in Artificial Intelligence, Machine Learning, Deep Learning, and Computer Vision.</p>
-            <a href="team.html" class="btn">Meet the Team</a>
+  <div class="layout">
+    <!-- ✅ شاشة اليوم الواحد -->
+    <section class="card">
+      <h2>بروتوكولات اليوم</h2>
+      <small>اختر ما تم إنجازه اليوم. يتم الحفظ تلقائيًا.</small>
+
+      <div id="habitsContainer" class="habits-list"></div>
+
+      <div class="summary-line">
+        إجمالي النقاط: <span id="pointsSummary">0 / 13</span>
+      </div>
+
+      <div class="extra-inputs">
+        <div class="field">
+          <label for="workHours">وقت الشغل / المذاكرة (ساعات):</label>
+          <input type="number" step="0.25" min="0" id="workHours">
         </div>
+
+        <div class="field">
+          <label for="screenHours">screen time in HRS:</label>
+          <input type="number" step="0.25" min="0" id="screenHours">
+        </div>
+        <div class="hint" id="screenHint"></div>
+      </div>
     </section>
 
-    <footer>
-        <p>© 2025 EMI Team. All rights reserved.</p>
-    </footer>
+    <!-- 📊 الإحصائيات / Data Visualization -->
+    <section class="card">
+      <h2>الإحصائيات (Data Visualization)</h2>
 
-    <div class="background-animation"></div>
+      <div class="stats-header">
+        <div>
+          <label for="metricSelect">المتغير:</label>
+          <select id="metricSelect"></select>
+        </div>
+        <div>
+          <label for="rangeSelect">الفترة:</label>
+          <select id="rangeSelect">
+            <option value="7">آخر 7 أيام</option>
+            <option value="14">آخر 14 يوم</option>
+            <option value="30" selected>آخر 30 يوم</option>
+          </select>
+        </div>
+      </div>
+
+      <canvas id="chartCanvas" height="260"></canvas>
+      <p class="note">
+        الرسم يعرض القيم من اليوم الحالى رجوعًا للفترة المختارة.
+        العادات الثنائية تظهر كـ 0 (لم تتم) أو 1 (تمّت).
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    البيانات محفوظة محليًا فى المتصفح (localStorage). لو فتحت الموقع تانى من نفس الجهاز هتفضل موجودة.
+  </footer>
+</div>
+
+<script>
+  // ===== تعريف البروتوكولات 13 =====
+  const HABITS = [
+    { id: "wake_early",      label: "اصحى بدري" },
+    { id: "no_sugar_fast",   label: "مفيش حلويات + فاست فود" },
+    { id: "no_phone_morning",label: "مفيش موبايل بعد الصحيان بساعتين" },
+    { id: "no_phone_night",  label: "مفيش موبايل قبل النوم بساعتين" },
+    { id: "workout",         label: "تمرين" },
+    { id: "sleep_before_12", label: "النوم قبل الساعة 12" },
+    { id: "mosque_prayer",   label: "الصلاة في المسجد" },
+    { id: "read_book",       label: "قراءة كتاب | معلومة جديدة" },
+    { id: "quran",           label: "الورد اليومي للقرآن" },
+    { id: "no_bad_habit",    label: "مفيش عادة سلبية (تدخين، أباحية، إلخ)" },
+    { id: "walk_25",         label: "المشي 25 دقيقة" },
+    { id: "zikr_500",        label: "500 ذكر" },
+    { id: "water_3l",        label: "شرب 3 لتر مياه" },
+  ];
+
+  const STORAGE_KEY = "dopamineDetox_daily_v1";
+
+  let state = { days: {} }; // days[dateKey] = {habits:{...}, workHours:number, screenHours:number}
+  let selectedDate = new Date();
+  let chartInstance = null;
+
+  const dateInput      = document.getElementById("dateInput");
+  const habitsContainer= document.getElementById("habitsContainer");
+  const pointsSummary  = document.getElementById("pointsSummary");
+  const workHoursInput = document.getElementById("workHours");
+  const screenHoursInput = document.getElementById("screenHours");
+  const screenHint     = document.getElementById("screenHint");
+  const metricSelect   = document.getElementById("metricSelect");
+  const rangeSelect    = document.getElementById("rangeSelect");
+  const chartCanvas    = document.getElementById("chartCanvas");
+
+  // ===== تواريخ =====
+  function formatDateKey(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+  }
+  function parseDateKey(key){
+    const [y,m,d] = key.split("-").map(Number);
+    return new Date(y, m-1, d);
+  }
+
+  // ===== تخزين =====
+  function loadState(){
+    try{
+      const s = localStorage.getItem(STORAGE_KEY);
+      if(s){ state = JSON.parse(s); }
+      if(!state.days) state.days = {};
+    }catch(e){
+      console.error("load error", e);
+      state = {days:{}}; 
+    }
+  }
+  function saveState(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function getDayData(dateKey){
+    if(!state.days[dateKey]){
+      state.days[dateKey] = {habits:{}, workHours:null, screenHours:null};
+    }
+    return state.days[dateKey];
+  }
+
+  // ===== رسم واجهة اليوم =====
+  function renderHabits(){
+    habitsContainer.innerHTML = "";
+    const dateKey = formatDateKey(selectedDate);
+    const dayData = getDayData(dateKey);
+
+    HABITS.forEach(habit=>{
+      const div = document.createElement("label");
+      div.className = "habit-item";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = !!dayData.habits[habit.id];
+
+      checkbox.addEventListener("change", ()=>{
+        dayData.habits[habit.id] = checkbox.checked;
+        saveState();
+        updatePoints();
+        updateChart();
+      });
+
+      const span = document.createElement("span");
+      span.textContent = habit.label;
+
+      div.appendChild(checkbox);
+      div.appendChild(span);
+      habitsContainer.appendChild(div);
+    });
+
+    // قيم الوقت
+    workHoursInput.value   = dayData.workHours   ?? "";
+    screenHoursInput.value = dayData.screenHours ?? "";
+    updatePoints();
+    updateScreenHint();
+  }
+
+  function updatePoints(){
+    const dateKey = formatDateKey(selectedDate);
+    const dayData = getDayData(dateKey);
+    let points = 0;
+    HABITS.forEach(h=>{
+      if(dayData.habits[h.id]) points++;
+    });
+    pointsSummary.textContent = `${points} / ${HABITS.length}`;
+  }
+
+  function updateScreenHint(){
+    const dateKey = formatDateKey(selectedDate);
+    const dayData = getDayData(dateKey);
+    const h = parseFloat(dayData.screenHours);
+    if(isNaN(h)){
+      screenHint.textContent = "";
+      return;
+    }
+    let txt = "";
+    if(h <= 3)      txt = "ممتاز: أقل من أو يساوي 3 ساعات.";
+    else if(h <= 5) txt = "جيد: 3–5 ساعات.";
+    else if(h <= 7) txt = "متوسط: 6–7 ساعات.";
+    else            txt = "سيء: أكثر من 7–8 ساعات.";
+    screenHint.textContent = txt;
+  }
+
+  // inputs للأوقات
+  workHoursInput.addEventListener("input", ()=>{
+    const dateKey = formatDateKey(selectedDate);
+    const dayData = getDayData(dateKey);
+    const v = workHoursInput.value === "" ? null : parseFloat(workHoursInput.value);
+    dayData.workHours = isNaN(v) ? null : v;
+    saveState();
+    updateChart();
+  });
+
+  screenHoursInput.addEventListener("input", ()=>{
+    const dateKey = formatDateKey(selectedDate);
+    const dayData = getDayData(dateKey);
+    const v = screenHoursInput.value === "" ? null : parseFloat(screenHoursInput.value);
+    dayData.screenHours = isNaN(v) ? null : v;
+    saveState();
+    updateScreenHint();
+    updateChart();
+  });
+
+  // ===== اختيار المتغير للفيواليزيشن =====
+  function initMetricSelect(){
+    metricSelect.innerHTML = "";
+
+    const optTotal = document.createElement("option");
+    optTotal.value = "totalPoints";
+    optTotal.textContent = "إجمالي النقاط من 13";
+    metricSelect.appendChild(optTotal);
+
+    const optWork = document.createElement("option");
+    optWork.value = "workHours";
+    optWork.textContent = "وقت الشغل / المذاكرة (ساعات)";
+    metricSelect.appendChild(optWork);
+
+    const optScreen = document.createElement("option");
+    optScreen.value = "screenHours";
+    optScreen.textContent = "screen time (ساعات)";
+    metricSelect.appendChild(optScreen);
+
+    const groupLabel = document.createElement("optgroup");
+    groupLabel.label = "العادات (0 أو 1)";
+    HABITS.forEach(h=>{
+      const o = document.createElement("option");
+      o.value = "habit:" + h.id;
+      o.textContent = h.label;
+      groupLabel.appendChild(o);
+    });
+    metricSelect.appendChild(groupLabel);
+  }
+
+  metricSelect.addEventListener("change", updateChart);
+  rangeSelect.addEventListener("change", updateChart);
+
+  // ===== الرسم البيانى =====
+  function computeDayPoints(dayData){
+    if(!dayData) return 0;
+    let p = 0;
+    HABITS.forEach(h=>{
+      if(dayData.habits && dayData.habits[h.id]) p++;
+    });
+    return p;
+  }
+
+  function updateChart(){
+    const metric = metricSelect.value || "totalPoints";
+    const range = parseInt(rangeSelect.value,10) || 30;
+    const today = new Date(); // منتهى الفترة = اليوم الحالى
+
+    const labels = [];
+    const values = [];
+    const metricLabel = metricSelect.options[metricSelect.selectedIndex]?.textContent || "";
+
+    for(let i = range-1; i >= 0; i--){
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = formatDateKey(d);
+      const dayData = state.days[key];
+
+      labels.push(`${d.getDate()}/${d.getMonth()+1}`);
+
+      let v = null;
+      if(metric === "totalPoints"){
+        v = computeDayPoints(dayData);
+      }else if(metric === "workHours"){
+        v = (dayData && typeof dayData.workHours === "number") ? dayData.workHours : 0;
+      }else if(metric === "screenHours"){
+        v = (dayData && typeof dayData.screenHours === "number") ? dayData.screenHours : 0;
+      }else if(metric.startsWith("habit:")){
+        const hid = metric.split(":")[1];
+        v = (dayData && dayData.habits && dayData.habits[hid]) ? 1 : 0;
+      }
+      values.push(v ?? 0);
+    }
+
+    if(chartInstance){
+      chartInstance.destroy();
+    }
+
+    const ctx = chartCanvas.getContext("2d");
+    chartInstance = new Chart(ctx,{
+      type:"line",
+      data:{
+        labels,
+        datasets:[{
+          label: metricLabel,
+          data: values,
+          tension:0.25,
+          pointRadius:3
+        }]
+      },
+      options:{
+        responsive:true,
+        interaction:{mode:"index",intersect:false},
+        scales:{
+          y:{beginAtZero:true}
+        }
+      }
+    });
+  }
+
+  // ===== تغيير اليوم من input =====
+  dateInput.addEventListener("change", ()=>{
+    const val = dateInput.value;
+    if(!val) return;
+    selectedDate = parseDateKey(val);
+    renderHabits();
+  });
+
+  // ===== INIT =====
+  (function init(){
+    loadState();
+    // تاريخ اليوم
+    selectedDate = new Date();
+    dateInput.value = formatDateKey(selectedDate);
+
+    // رسم العناصر
+    initMetricSelect();
+    renderHabits();
+    updateChart();
+  })();
+</script>
 </body>
-
 </html>
